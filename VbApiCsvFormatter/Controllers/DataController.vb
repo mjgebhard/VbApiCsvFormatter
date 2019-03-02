@@ -18,7 +18,7 @@ Namespace Controllers
         Public Sub New()
             Dim json As String = "[
             {
-                ""nSymbol"": ""AAPL"",
+                ""nSymbol"": ""AAPL1"",
                 ""nDate"": ""20181130"",
                 ""nOpen"": 180.29,
                 ""nHigh"": 180.33,
@@ -27,7 +27,7 @@ Namespace Controllers
                 ""nVolume"": 35981329
             },
             {
-                ""nSymbol"": ""AAPL"",
+                ""nSymbol"": ""AAPL1"",
                 ""nDate"": ""20181129"",
                 ""nOpen"": 182.66,
                 ""nHigh"": 182.8,
