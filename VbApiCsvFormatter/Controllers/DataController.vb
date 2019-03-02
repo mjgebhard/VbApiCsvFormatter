@@ -7,6 +7,7 @@ Imports System.Net.Http
 Imports System.Net.Http.Headers
 Imports System.Web.Http
 Imports Newtonsoft.Json
+Imports System.Linq
 
 Namespace Controllers
     Public Class DataController
@@ -69,11 +70,16 @@ Namespace Controllers
             Return data
         End Function
 
-        Public Function [Get](ByVal id As Integer) As HttpResponseMessage
+        Public Function [Get](ByVal Symbol As String) As HttpResponseMessage
+
+            'Mock fetch data
+            Dim queryResult = From d In data
+                              Where d.nSymbol = Symbol
+                              Select d
 
             Dim sb = New StringBuilder()
             sb.AppendLine(String.Format("{0},{1},{2},{3},{4},{5},{6}", "Symbol", "Date", "Open", "High", "Low", "Close", "Volume"))
-            For Each SDOHLCV In data
+            For Each SDOHLCV In queryResult.ToList()
                 sb.AppendLine(String.Format("{0},{1},{2},{3},{4},{5},{6}", Escape(SDOHLCV.nSymbol), Escape(SDOHLCV.nDate), Escape(SDOHLCV.nOpen), Escape(SDOHLCV.nHigh), Escape(SDOHLCV.nLow), Escape(SDOHLCV.nClose), Escape(SDOHLCV.nVolume)))
             Next
 
