@@ -4,6 +4,7 @@ Option Explicit On
 Imports System.IO
 Imports System.Net.Http
 Imports System.Net.Http.Formatting
+Imports System.Net.Http.Headers
 
 Public Class SDOHLCVCsvFormatter
     Inherits BufferedMediaTypeFormatter
@@ -12,6 +13,13 @@ Public Class SDOHLCVCsvFormatter
         SupportedMediaTypes.Add(New System.Net.Http.Headers.MediaTypeHeaderValue("text/csv"))
         SupportedEncodings.Add(New UTF8Encoding(False))
         SupportedEncodings.Add(Encoding.GetEncoding("iso-8859-1"))
+    End Sub
+
+    Public Overrides Sub SetDefaultContentHeaders(ByVal type As Type, ByVal headers As System.Net.Http.Headers.HttpContentHeaders, ByVal mediaType As MediaTypeHeaderValue)
+        MyBase.SetDefaultContentHeaders(type, headers, mediaType)
+        headers.Add("Content-Disposition", "attachment; filename=SDOHLCV.csv")
+        headers.ContentType = New MediaTypeHeaderValue("application/octet-stream")
+
     End Sub
 
     Public Overrides Function CanReadType(type As Type) As Boolean
@@ -28,8 +36,8 @@ Public Class SDOHLCVCsvFormatter
     End Function
 
     Public Overrides Sub WriteToStream(ByVal type As Type, ByVal value As Object, ByVal writeStream As Stream, ByVal content As HttpContent)
-        Dim effectiveEncoding As Encoding = SelectCharacterEncoding(content.Headers)
-
+        'Dim effectiveEncoding As Encoding = SelectCharacterEncoding(content.Headers)
+        'content.Headers.Add("Content-Disposition", "attachment; filename=""csv.text""")
         Using writer = New StreamWriter(writeStream)
             Dim SDOHLCVs = TryCast(value, IEnumerable(Of SDOHLCV))
 
