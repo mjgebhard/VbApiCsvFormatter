@@ -34,6 +34,8 @@ Public Class SDOHLCVCsvFormatter
         Using writer = New StreamWriter(writeStream)
             Dim SDOHLCVs = TryCast(value, IEnumerable(Of SDOHLCV))
 
+            writer.WriteLine("{0},{1},{2},{3},{4},{5},{6}", "Symbol", "Date", "Open", "High", "Low", "Close", "Volume")
+
             If SDOHLCVs IsNot Nothing Then
 
                 For Each SDOHLCV In SDOHLCVs

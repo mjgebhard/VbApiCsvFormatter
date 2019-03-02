@@ -72,6 +72,7 @@ Namespace Controllers
         Public Function [Get](ByVal id As Integer) As HttpResponseMessage
 
             Dim sb = New StringBuilder()
+            sb.AppendLine(String.Format("{0},{1},{2},{3},{4},{5},{6}", "Symbol", "Date", "Open", "High", "Low", "Close", "Volume"))
             For Each SDOHLCV In data
                 sb.AppendLine(String.Format("{0},{1},{2},{3},{4},{5},{6}", Escape(SDOHLCV.nSymbol), Escape(SDOHLCV.nDate), Escape(SDOHLCV.nOpen), Escape(SDOHLCV.nHigh), Escape(SDOHLCV.nLow), Escape(SDOHLCV.nClose), Escape(SDOHLCV.nVolume)))
             Next
