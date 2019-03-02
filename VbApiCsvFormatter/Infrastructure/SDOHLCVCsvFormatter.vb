@@ -4,22 +4,15 @@ Option Explicit On
 Imports System.IO
 Imports System.Net.Http
 Imports System.Net.Http.Formatting
-Imports System.Net.Http.Headers
+
 
 Public Class SDOHLCVCsvFormatter
     Inherits BufferedMediaTypeFormatter
 
     Public Sub New()
         SupportedMediaTypes.Add(New System.Net.Http.Headers.MediaTypeHeaderValue("text/csv"))
-        SupportedEncodings.Add(New UTF8Encoding(False))
-        SupportedEncodings.Add(Encoding.GetEncoding("iso-8859-1"))
-    End Sub
-
-    Public Overrides Sub SetDefaultContentHeaders(ByVal type As Type, ByVal headers As System.Net.Http.Headers.HttpContentHeaders, ByVal mediaType As MediaTypeHeaderValue)
-        MyBase.SetDefaultContentHeaders(type, headers, mediaType)
-        headers.Add("Content-Disposition", "attachment; filename=SDOHLCV.csv")
-        headers.ContentType = New MediaTypeHeaderValue("application/octet-stream")
-
+        'SupportedEncodings.Add(New UTF8Encoding(False))
+        'SupportedEncodings.Add(Encoding.GetEncoding("iso-8859-1"))
     End Sub
 
     Public Overrides Function CanReadType(type As Type) As Boolean
